@@ -33,7 +33,7 @@ async function forward(req: NextRequest, path: string[]) {
 
   let backendRes = await doFetch(accessToken);
 
-  if (backendRes.status === 401 && accessToken) {
+  if (backendRes.status === 401) {
     const refreshed = await tryRefresh();
     if (refreshed) {
       backendRes = await doFetch(refreshed);
