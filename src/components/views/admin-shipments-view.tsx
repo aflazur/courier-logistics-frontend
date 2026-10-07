@@ -40,7 +40,7 @@ export function AdminShipmentsView() {
               shipments={data?.data ?? []}
               detailBasePath="/admin/manage"
               renderActions={(s) =>
-                !s.courierId && s.status === 'PENDING' ? (
+                !s.courierId && s.status === 'PICKUP_SCHEDULED' ? (
                   <AssignCourierDialog shipmentId={s.id} />
                 ) : (
                   <span className="text-ink-400 text-xs">{s.courierId ? 'Assigned' : '—'}</span>

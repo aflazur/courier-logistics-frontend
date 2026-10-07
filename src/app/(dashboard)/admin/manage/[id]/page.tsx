@@ -24,7 +24,7 @@ export default async function AdminShipmentDetailPage({
       </Link>
 
       <ShipmentDetailCard shipment={shipment}>
-        {!shipment.courierId && shipment.status === 'PENDING' && (
+        {!shipment.courierId && shipment.status === 'PICKUP_SCHEDULED' && (
           <AssignCourierDialog shipmentId={shipment.id} />
         )}
         <StatusUpdatePanel shipmentId={shipment.id} currentStatus={shipment.status} />
