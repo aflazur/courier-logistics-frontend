@@ -1,8 +1,27 @@
 import Link from 'next/link';
-import { ArrowRight, MapPin, ShieldCheck, Truck, Clock, CreditCard, Bell } from 'lucide-react';
+import { ArrowRight, MapPin, ShieldCheck, Truck, Clock, CreditCard, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { BACKEND_URL } from '@/lib/config';
 
-export default function HomePage() {
+interface Hub {
+  id: string;
+  name: string;
+  city: string;
+  zone: string;
+}
+
+async function getHubs(): Promise<Hub[]> {
+  try {
+    const res = await fetch(`${BACKEND_URL}/hubs`, { next: { revalidate: 300 } });
+    if (!res.ok) return [];
+    return ((await res.json()) as { data?: Hub[] }).data ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export default async function HomePage() {
+  const hubs = await getHubs();
   return (
     <>
       {/* Hero */}
@@ -37,23 +56,21 @@ export default function HomePage() {
           </div>
 
           <div className="border-ink-700 bg-ink-800 rounded-sm border p-6 font-mono text-sm">
-            <p className="text-ink-300 mb-4 text-xs tracking-wide uppercase">Sample manifest</p>
-            <div className="space-y-3">
-              {[
-                { label: 'Tracking Code', value: 'CRX-2026-208412' },
-                { label: 'Status', value: 'IN TRANSIT', accent: true },
-                { label: 'Origin Hub', value: 'Dhaka Central Hub' },
-                { label: 'Destination', value: 'GEC Circle, Chattogram' },
-                { label: 'Courier', value: 'Assigned' },
-              ].map((row) => (
-                <div key={row.label} className="border-ink-700 flex justify-between border-b pb-2">
-                  <span className="text-ink-400">{row.label}</span>
-                  <span className={row.accent ? 'text-signal-500' : 'text-chalk-50'}>
-                    {row.value}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <p className="text-ink-300 mb-4 text-xs tracking-wide uppercase">Our hub network</p>
+            {hubs.length === 0 ? (
+              <p className="text-ink-300">Hubs will appear here once the network is published.</p>
+            ) : (
+              <ul className="space-y-3">
+                {hubs.slice(0, 5).map((h) => (
+                  <li key={h.id} className="border-ink-700 flex justify-between border-b pb-2">
+                    <span className="text-chalk-50">{h.name}</span>
+                    <span className="text-ink-400">
+                      {h.zone}, {h.city}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </section>
@@ -94,10 +111,10 @@ export default function HomePage() {
               title: 'Courier assignment',
               desc: 'Admins assign available couriers to shipments; earnings are tracked per completed delivery.',
             },
-            {
-              icon: Bell,
-              title: 'Delivery notifications',
-              desc: 'Customers get notified as their shipment moves and when it\u2019s handed off.',
+                        {
+              icon: Users,
+              title: 'Personal shipment history',
+              desc: 'Customers see their own shipments and payments; couriers see only the parcels assigned to them.',
             },
           ].map((f) => (
             <div key={f.title} className="border-ink-100 rounded-sm border bg-white p-6">
