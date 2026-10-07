@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { ShipmentStatusBadge } from './status-badge';
 import { EmptyState } from './empty-state';
 import { formatCurrency, formatDate } from '@/lib/utils';
@@ -33,6 +34,7 @@ export function ShipmentTable({
             <th className="px-5 py-3 font-medium">Status</th>
             <th className="px-5 py-3 font-medium">Fee</th>
             <th className="px-5 py-3 font-medium">Created</th>
+            <th className="px-5 py-3 font-medium">Details</th>
             {renderActions && <th className="px-5 py-3 text-right font-medium">Actions</th>}
           </tr>
         </thead>
@@ -42,7 +44,7 @@ export function ShipmentTable({
               <td className="px-5 py-3">
                 <Link
                   href={`${detailBasePath}/${s.id}`}
-                  className="text-ink-900 hover:text-signal-600 font-mono text-xs"
+                  className="text-ink-900 hover:text-signal-600 font-mono text-xs underline underline-offset-4"
                 >
                   {s.trackingCode}
                 </Link>
@@ -53,6 +55,15 @@ export function ShipmentTable({
               </td>
               <td className="text-ink-700 px-5 py-3 font-mono">{formatCurrency(s.deliveryFee)}</td>
               <td className="text-ink-500 px-5 py-3">{formatDate(s.createdAt)}</td>
+              <td className="px-5 py-3">
+                <Link
+                  href={`${detailBasePath}/${s.id}`}
+                  className="text-ink-900 hover:text-signal-600 inline-flex items-center gap-1 text-xs font-medium"
+                  aria-label={`View details for ${s.trackingCode}`}
+                >
+                  View <ArrowRight className="h-3 w-3" />
+                </Link>
+              </td>
               {renderActions && <td className="px-5 py-3 text-right">{renderActions(s)}</td>}
             </tr>
           ))}
