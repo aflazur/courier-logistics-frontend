@@ -3,6 +3,7 @@ import {
   Package,
   FileClock,
   User,
+  Users,
   CreditCard,
   Truck,
   Wallet,
@@ -22,6 +23,7 @@ export const NAV_BY_ROLE: Record<Role, NavItem[]> = {
   ADMIN: [
     { href: '/admin', label: 'Overview', icon: LayoutDashboard },
     { href: '/admin/manage', label: 'Shipments', icon: Package },
+    { href: '/admin/users', label: 'Users', icon: Users },
     { href: '/admin/hubs', label: 'Hubs', icon: Building2 },
     { href: '/admin/reports', label: 'Audit Logs', icon: FileClock },
   ],
