@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, MapPin, ShieldCheck, Truck, Clock, CreditCard, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BACKEND_URL } from '@/lib/config';
@@ -55,22 +56,33 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="border-ink-700 bg-ink-800 rounded-sm border p-6 font-mono text-sm">
-            <p className="text-ink-300 mb-4 text-xs tracking-wide uppercase">Our hub network</p>
-            {hubs.length === 0 ? (
-              <p className="text-ink-300">Hubs will appear here once the network is published.</p>
-            ) : (
-              <ul className="space-y-3">
-                {hubs.slice(0, 5).map((h) => (
-                  <li key={h.id} className="border-ink-700 flex justify-between border-b pb-2">
-                    <span className="text-chalk-50">{h.name}</span>
-                    <span className="text-ink-400">
-                      {h.zone}, {h.city}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
+          <div className="space-y-6">
+            <Image
+              src="/route-illustration.svg"
+              alt="A parcel route from pickup through an origin hub and a destination hub to the recipient's doorstep"
+              width={640}
+              height={260}
+              priority
+              unoptimized
+              className="border-ink-700 h-auto w-full rounded-sm border"
+            />
+            <div className="border-ink-700 bg-ink-800 rounded-sm border p-6 font-mono text-sm">
+              <p className="text-ink-300 mb-4 text-xs tracking-wide uppercase">Our hub network</p>
+              {hubs.length === 0 ? (
+                <p className="text-ink-300">Hubs will appear here once the network is published.</p>
+              ) : (
+                <ul className="space-y-3">
+                  {hubs.slice(0, 5).map((h) => (
+                    <li key={h.id} className="border-ink-700 flex justify-between border-b pb-2">
+                      <span className="text-chalk-50">{h.name}</span>
+                      <span className="text-ink-400">
+                        {h.zone}, {h.city}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -111,7 +123,7 @@ export default async function HomePage() {
               title: 'Courier assignment',
               desc: 'Admins assign available couriers to shipments; earnings are tracked per completed delivery.',
             },
-                        {
+            {
               icon: Users,
               title: 'Personal shipment history',
               desc: 'Customers see their own shipments and payments; couriers see only the parcels assigned to them.',
