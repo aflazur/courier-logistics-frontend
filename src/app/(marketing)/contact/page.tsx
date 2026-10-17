@@ -21,7 +21,7 @@ export default function ContactPage() {
             <Mail className="text-signal-600 h-4 w-4" /> support@courier-platform.example
           </div>
           <div className="text-ink-700 flex items-center gap-3 text-sm">
-            <Phone className="text-signal-600 h-4 w-4" /> +880 1700-000000
+            <Phone className="text-signal-600 h-4 w-4" /> +880 1879-877653
           </div>
           <div className="text-ink-700 flex items-center gap-3 text-sm">
             <MapPin className="text-signal-600 h-4 w-4" /> Motijheel C/A, Dhaka, Bangladesh

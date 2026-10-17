@@ -11,8 +11,8 @@ function GithubIcon({ className }: { className?: string }) {
 
 // Add more entries (LinkedIn, Facebook...) here once the real profile URLs exist.
 const SOCIALS = [
-  { href: 'https://github.com/aflazur/courier-logistics-frontend', label: 'GitHub', icon: GithubIcon },
-  { href: 'mailto:support@courier-platform.example', label: 'Email', icon: Mail },
+  { href: 'https://github.com/aflazur', label: 'GitHub', icon: GithubIcon },
+  { href: 'mailto:mdaflazurrahaman2022@gmail.com', label: 'Email', icon: Mail },
 ];
 
 const COLUMNS = [
@@ -58,7 +58,7 @@ export function MarketingFooter() {
           </p>
           <ul className="text-ink-300 mt-5 space-y-2 text-sm">
             <li className="flex items-center gap-2">
-              <Mail className="text-signal-500 h-4 w-4" /> support@courier-platform.example
+              <Mail className="text-signal-500 h-4 w-4" /> mdaflazurrahaman2022@gmail.com
             </li>
             <li className="flex items-center gap-2">
               <Phone className="text-signal-500 h-4 w-4" /> +880 1700-000000
@@ -100,7 +100,7 @@ export function MarketingFooter() {
         ))}
       </div>
       <div className="border-ink-800 text-ink-300 border-t py-4 text-center text-xs">
-        &copy; {new Date().getFullYear()} Courier & Logistics Platform. Built for B7A7.
+        &copy; {new Date().getFullYear()} Courier & Logistics Platform.
       </div>
     </footer>
   );
