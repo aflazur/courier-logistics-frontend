@@ -10,6 +10,8 @@ export interface ShipmentListParams {
   search?: string;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
+  dateFrom?: string;
+  dateTo?: string;
 }
 
 function buildQuery(params: ShipmentListParams) {
@@ -20,6 +22,8 @@ function buildQuery(params: ShipmentListParams) {
   if (params.search) qs.set('search', params.search);
   if (params.sortBy) qs.set('sortBy', params.sortBy);
   if (params.sortOrder) qs.set('sortOrder', params.sortOrder);
+  if (params.dateFrom) qs.set('dateFrom', params.dateFrom);
+  if (params.dateTo) qs.set('dateTo', params.dateTo);
   return qs.toString();
 }
 

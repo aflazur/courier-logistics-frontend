@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Package } from 'lucide-react';
+import { GoogleButton } from '@/components/forms/google-button';
 import { RegisterForm } from '@/components/forms/register-form';
 
 export const metadata: Metadata = {
@@ -31,6 +32,13 @@ export default function RegisterPage() {
           <div className="mt-6">
             <RegisterForm />
           </div>
+
+          <div className="my-6 flex items-center gap-3">
+            <div className="bg-ink-100 h-px flex-1" />
+            <span className="text-ink-400 font-mono text-xs uppercase">or</span>
+            <div className="bg-ink-100 h-px flex-1" />
+          </div>
+          <GoogleButton />
 
           <p className="text-ink-500 mt-6 text-center text-sm">
             Already have an account?{' '}

@@ -74,8 +74,8 @@ export function ShipmentFilterBar() {
   };
 
   return (
-    <div className="border-ink-100 flex flex-col gap-3 border-b p-5 sm:flex-row">
-      <div className="relative flex-1">
+    <div className="border-ink-100 flex flex-col gap-3 border-b p-5 sm:flex-row sm:flex-wrap">
+      <div className="relative flex-1 sm:min-w-64">
         <Search className="text-ink-400 absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
         <Input
           placeholder="Search by tracking code or recipient..."
@@ -115,6 +115,24 @@ export function ShipmentFilterBar() {
           ))}
         </SelectContent>
       </Select>
+      <Input
+        type="date"
+        aria-label="Created from"
+        title="Created from"
+        className="sm:w-40"
+        value={searchParams.get('from') ?? ''}
+        max={searchParams.get('to') ?? undefined}
+        onChange={(e) => setParam('from', e.target.value, '')}
+      />
+      <Input
+        type="date"
+        aria-label="Created to"
+        title="Created to"
+        className="sm:w-40"
+        value={searchParams.get('to') ?? ''}
+        min={searchParams.get('from') ?? undefined}
+        onChange={(e) => setParam('to', e.target.value, '')}
+      />
     </div>
   );
 }

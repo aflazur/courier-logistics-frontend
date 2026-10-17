@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Package } from 'lucide-react';
 import { LoginForm } from '@/components/forms/login-form';
+import { GoogleButton } from '@/components/forms/google-button';
 import { DemoLoginButtons } from '@/components/forms/demo-login-buttons';
 
 export const metadata: Metadata = {
@@ -39,7 +40,9 @@ export default function LoginPage() {
             <div className="bg-ink-100 h-px flex-1" />
           </div>
 
-          <p className="text-ink-500 mb-3 text-center font-mono text-xs tracking-wide uppercase">
+          <GoogleButton />
+
+          <p className="text-ink-500 mt-6 mb-3 text-center font-mono text-xs tracking-wide uppercase">
             Quick demo login
           </p>
           <DemoLoginButtons />

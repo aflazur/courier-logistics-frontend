@@ -13,9 +13,11 @@ export function ProviderDeliveriesView() {
   const page = Number(searchParams.get('page') ?? '1');
   const status = searchParams.get('status') ?? undefined;
   const search = searchParams.get('search') ?? undefined;
+  const dateFrom = searchParams.get('from') ?? undefined;
+  const dateTo = searchParams.get('to') ?? undefined;
   const sort = parseShipmentSort(searchParams.get('sort'));
 
-  const { data, isLoading } = useShipments({ page, limit: 10, status, search, ...sort }, 'assigned');
+  const { data, isLoading } = useShipments({ page, limit: 10, status, search, dateFrom, dateTo, ...sort }, 'assigned');
 
   return (
     <div className="space-y-4">

@@ -16,9 +16,11 @@ export function CustomerShipmentsView() {
   const page = Number(searchParams.get('page') ?? '1');
   const status = searchParams.get('status') ?? undefined;
   const search = searchParams.get('search') ?? undefined;
+  const dateFrom = searchParams.get('from') ?? undefined;
+  const dateTo = searchParams.get('to') ?? undefined;
   const sort = parseShipmentSort(searchParams.get('sort'));
 
-  const { data, isLoading } = useShipments({ page, limit: 10, status, search, ...sort }, 'mine');
+  const { data, isLoading } = useShipments({ page, limit: 10, status, search, dateFrom, dateTo, ...sort }, 'mine');
 
   return (
     <div className="space-y-4">
