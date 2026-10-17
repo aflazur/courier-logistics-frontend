@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Users, Truck, Package, CheckCircle2, Clock, Wallet } from 'lucide-react';
 import { StatCard } from '@/components/shared/stat-card';
+import { AiInsightsCard } from '@/components/ai/ai-insights-card';
 import { DashboardChart, TrendChart, type ChartDatum } from '@/components/shared/dashboard-chart';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { serverFetch } from '@/lib/server-api';
@@ -91,6 +92,8 @@ export default async function AdminOverviewPage() {
           </CardContent>
         </Card>
       </div>
+
+      <AiInsightsCard />
     </div>
   );
 }

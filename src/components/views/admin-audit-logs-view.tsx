@@ -40,14 +40,19 @@ export function AdminAuditLogsView() {
           <>
             <ul className="divide-ink-100 divide-y">
               {logs.map((log) => (
-                <li key={log.id} className="flex items-start justify-between gap-4 px-5 py-4">
-                  <div>
-                    <p className="text-ink-900 font-mono text-sm font-medium">{log.action}</p>
+                <li
+                  key={log.id}
+                  className="flex flex-col gap-1 px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4"
+                >
+                  <div className="min-w-0">
+                    <p className="text-ink-900 font-mono text-sm font-medium break-words">
+                      {log.action}
+                    </p>
                     <p className="text-ink-500 mt-0.5 text-xs">
                       {log.entityType} &middot; {log.actor?.name ?? log.actorId}
                     </p>
                   </div>
-                  <span className="text-ink-400 font-mono text-xs whitespace-nowrap">
+                  <span className="text-ink-500 font-mono text-xs sm:whitespace-nowrap">
                     {formatDate(log.createdAt)}
                   </span>
                 </li>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Space_Grotesk, Inter, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/providers';
+import { ChatWidget } from '@/components/ai/chat-widget';
 import { getSession } from '@/lib/session';
 
 const spaceGrotesk = Space_Grotesk({
@@ -54,7 +55,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className="bg-chalk-50 text-ink-900 flex min-h-full flex-col">
-        <Providers initialUser={session}>{children}</Providers>
+        <Providers initialUser={session}>
+          {children}
+          <ChatWidget />
+        </Providers>
       </body>
     </html>
   );

@@ -40,46 +40,48 @@ export function CustomerPaymentsView() {
           />
         ) : (
           <>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-ink-100 text-ink-500 border-b text-left font-mono text-xs tracking-wide uppercase">
-                  <th className="px-5 py-3 font-medium">Tracking</th>
-                  <th className="px-5 py-3 font-medium">Amount</th>
-                  <th className="px-5 py-3 font-medium">Status</th>
-                  <th className="px-5 py-3 font-medium">Paid at</th>
-                </tr>
-              </thead>
-              <tbody>
-                {shipments.map((s) => (
-                  <tr
-                    key={s.id}
-                    className="border-ink-100 hover:bg-chalk-100 border-b last:border-0"
-                  >
-                    <td className="px-5 py-3">
-                      <Link
-                        href={`/dashboard/shipments/${s.id}`}
-                        className="hover:text-signal-600 font-mono text-xs"
-                      >
-                        {s.trackingCode}
-                      </Link>
-                    </td>
-                    <td className="text-ink-700 px-5 py-3 font-mono">
-                      {formatCurrency(s.deliveryFee)}
-                    </td>
-                    <td className="px-5 py-3">
-                      {s.payment ? (
-                        <PaymentStatusBadge status={s.payment.status} />
-                      ) : (
-                        <span className="text-ink-400 text-xs">Not initiated</span>
-                      )}
-                    </td>
-                    <td className="text-ink-500 px-5 py-3">
-                      {s.payment?.paidAt ? formatDate(s.payment.paidAt) : '—'}
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-136 text-sm">
+                <thead>
+                  <tr className="border-ink-100 text-ink-500 border-b text-left font-mono text-xs tracking-wide uppercase">
+                    <th className="px-5 py-3 font-medium">Tracking</th>
+                    <th className="px-5 py-3 font-medium">Amount</th>
+                    <th className="px-5 py-3 font-medium">Status</th>
+                    <th className="px-5 py-3 font-medium">Paid at</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {shipments.map((s) => (
+                    <tr
+                      key={s.id}
+                      className="border-ink-100 hover:bg-chalk-100 border-b last:border-0"
+                    >
+                      <td className="px-5 py-3">
+                        <Link
+                          href={`/dashboard/shipments/${s.id}`}
+                          className="hover:text-signal-600 font-mono text-xs whitespace-nowrap"
+                        >
+                          {s.trackingCode}
+                        </Link>
+                      </td>
+                      <td className="text-ink-700 px-5 py-3 font-mono">
+                        {formatCurrency(s.deliveryFee)}
+                      </td>
+                      <td className="px-5 py-3">
+                        {s.payment ? (
+                          <PaymentStatusBadge status={s.payment.status} />
+                        ) : (
+                          <span className="text-ink-400 text-xs">Not initiated</span>
+                        )}
+                      </td>
+                      <td className="text-ink-500 px-5 py-3 whitespace-nowrap">
+                        {s.payment?.paidAt ? formatDate(s.payment.paidAt) : '—'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             {data?.meta && <Pagination meta={data.meta} />}
           </>
         )}

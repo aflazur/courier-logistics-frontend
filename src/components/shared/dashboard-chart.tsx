@@ -32,7 +32,7 @@ const TOOLTIP = {
 export function DashboardChart({ data }: { data: ChartDatum[] }) {
   const crowded = data.length > 5;
   return (
-    <div role="img" aria-label="Bar chart of shipment counts by status">
+    <div role="img" aria-label="Bar chart of shipment counts by status" className="overflow-x-clip">
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: crowded ? 24 : 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--color-ink-100)" vertical={false} />
@@ -62,7 +62,7 @@ export function DashboardChart({ data }: { data: ChartDatum[] }) {
 /** Simple line chart for a short time series (e.g. new shipments per day). */
 export function TrendChart({ data }: { data: ChartDatum[] }) {
   return (
-    <div role="img" aria-label="Line chart of new shipments per day">
+    <div role="img" aria-label="Line chart of new shipments per day" className="overflow-x-clip">
       <ResponsiveContainer width="100%" height={280}>
         <LineChart data={data} margin={{ top: 8, right: 12, left: -16, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--color-ink-100)" vertical={false} />
