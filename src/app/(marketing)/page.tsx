@@ -208,6 +208,11 @@ export default async function HomePage() {
               platform.
             </p>
           </div>
+          <Button asChild variant="outline" size="sm">
+            <Link href="/hubs">
+              Explore all hubs <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </Button>
         </div>
         {hubs.length === 0 ? (
           <p className="border-ink-100 text-ink-500 mt-8 rounded-sm border bg-white p-8 text-center text-sm">

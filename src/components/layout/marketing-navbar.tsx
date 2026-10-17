@@ -12,12 +12,13 @@ import { ThemeToggle } from './theme-toggle';
 import { ProfileMenu } from './profile-menu';
 
 // Six public routes for everyone; logged-in users also get their Dashboard link (7 routes).
+// Help lives in the footer.
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/about', label: 'About' },
-  { href: '/help', label: 'Help' },
+  { href: '/hubs', label: 'Hubs' },
   { href: '/contact', label: 'Contact' },
 ];
 
