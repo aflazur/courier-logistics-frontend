@@ -2,7 +2,12 @@ import type { Metadata } from 'next';
 import { Users, Truck, Package, CheckCircle2, Clock, Wallet } from 'lucide-react';
 import { StatCard } from '@/components/shared/stat-card';
 import { AiInsightsCard } from '@/components/ai/ai-insights-card';
-import { DashboardChart, TrendChart, type ChartDatum } from '@/components/shared/dashboard-chart';
+import {
+  DashboardChart,
+  StatusPieChart,
+  TrendChart,
+  type ChartDatum,
+} from '@/components/shared/dashboard-chart';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { serverFetch } from '@/lib/server-api';
 import { formatCurrency } from '@/lib/utils';
@@ -53,6 +58,36 @@ export default async function AdminOverviewPage() {
     };
   });
 
+  // Coarser grouping for the pie: how the pipeline splits between finished, moving and stuck.
+  const outcomeGroups: { label: string; color: string; statuses: ShipmentStatus[] }[] = [
+    { label: 'Delivered', color: '#2f8f5b', statuses: ['DELIVERED'] },
+    {
+      label: 'In progress',
+      color: '#f0a202',
+      statuses: [
+        'PICKUP_SCHEDULED',
+        'PICKED_UP',
+        'AT_ORIGIN_HUB',
+        'IN_TRANSIT',
+        'AT_DESTINATION_HUB',
+        'OUT_FOR_DELIVERY',
+      ],
+    },
+    { label: 'Pending', color: '#9aa3af', statuses: ['PENDING'] },
+    {
+      label: 'Failed / returned / cancelled',
+      color: '#c0392b',
+      statuses: ['FAILED_DELIVERY', 'RETURNED', 'CANCELLED'],
+    },
+  ];
+  const outcomeData: ChartDatum[] = outcomeGroups
+    .map((g) => ({
+      label: g.label,
+      color: g.color,
+      value: shipments.filter((x) => g.statuses.includes(x.status)).length,
+    }))
+    .filter((d) => d.value > 0);
+
   const sampled = stats.totalShipments > shipments.length;
 
   return (
@@ -93,7 +128,21 @@ export default async function AdminOverviewPage() {
         </Card>
       </div>
 
-      <AiInsightsCard />
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <Card className="min-w-0">
+          <CardHeader>
+            <CardTitle>Delivery outcome share</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {outcomeData.length === 0 ? (
+              <p className="text-ink-500 py-16 text-center text-sm">No shipments yet.</p>
+            ) : (
+              <StatusPieChart data={outcomeData} />
+            )}
+          </CardContent>
+        </Card>
+        <AiInsightsCard />
+      </div>
     </div>
   );
 }

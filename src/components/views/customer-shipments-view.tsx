@@ -6,7 +6,7 @@ import { PackagePlus } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ShipmentFilterBar } from '@/components/shared/filter-bar';
+import { ShipmentFilterBar, parseShipmentSort } from '@/components/shared/filter-bar';
 import { ShipmentTable } from '@/components/shared/shipment-table';
 import { Pagination } from '@/components/shared/pagination';
 import { useShipments } from '@/hooks/use-shipments';
@@ -16,8 +16,9 @@ export function CustomerShipmentsView() {
   const page = Number(searchParams.get('page') ?? '1');
   const status = searchParams.get('status') ?? undefined;
   const search = searchParams.get('search') ?? undefined;
+  const sort = parseShipmentSort(searchParams.get('sort'));
 
-  const { data, isLoading } = useShipments({ page, limit: 10, status, search }, 'mine');
+  const { data, isLoading } = useShipments({ page, limit: 10, status, search, ...sort }, 'mine');
 
   return (
     <div className="space-y-4">

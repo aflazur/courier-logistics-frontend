@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { Card } from '@/components/ui/card';
-import { ShipmentFilterBar } from '@/components/shared/filter-bar';
+import { ShipmentFilterBar, parseShipmentSort } from '@/components/shared/filter-bar';
 import { ShipmentTable } from '@/components/shared/shipment-table';
 import { Pagination } from '@/components/shared/pagination';
 import { AssignCourierDialog } from '@/components/admin/assign-courier-dialog';
@@ -14,8 +14,9 @@ export function AdminShipmentsView() {
   const page = Number(searchParams.get('page') ?? '1');
   const status = searchParams.get('status') ?? undefined;
   const search = searchParams.get('search') ?? undefined;
+  const sort = parseShipmentSort(searchParams.get('sort'));
 
-  const { data, isLoading } = useShipments({ page, limit: 10, status, search }, 'admin');
+  const { data, isLoading } = useShipments({ page, limit: 10, status, search, ...sort }, 'admin');
 
   return (
     <div className="space-y-4">

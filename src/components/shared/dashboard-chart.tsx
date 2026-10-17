@@ -7,6 +7,9 @@ import {
   Cell,
   Line,
   LineChart,
+  Legend,
+  Pie,
+  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -77,6 +80,45 @@ export function TrendChart({ data }: { data: ChartDatum[] }) {
             dot={{ r: 4, fill: '#f0a202', stroke: 'var(--color-ink-900)', strokeWidth: 2 }}
           />
         </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+/** Donut chart for share-of-total data (e.g. delivered vs in progress vs problem). */
+export function StatusPieChart({ data }: { data: ChartDatum[] }) {
+  const total = data.reduce((sum, d) => sum + d.value, 0);
+  return (
+    <div role="img" aria-label="Pie chart of shipment outcome share">
+      <ResponsiveContainer width="100%" height={280}>
+        <PieChart>
+          <Pie
+            data={data}
+            dataKey="value"
+            nameKey="label"
+            innerRadius={56}
+            outerRadius={96}
+            paddingAngle={2}
+            stroke="var(--color-surface)"
+            strokeWidth={2}
+          >
+            {data.map((d) => (
+              <Cell key={d.label} fill={d.color ?? '#f0a202'} />
+            ))}
+          </Pie>
+          <Tooltip
+            contentStyle={TOOLTIP}
+            formatter={(value, name) => [
+              `${value} (${total ? Math.round((Number(value) / total) * 100) : 0}%)`,
+              name,
+            ]}
+          />
+          <Legend
+            verticalAlign="bottom"
+            iconType="circle"
+            wrapperStyle={{ fontSize: 12, color: 'var(--color-ink-500)' }}
+          />
+        </PieChart>
       </ResponsiveContainer>
     </div>
   );

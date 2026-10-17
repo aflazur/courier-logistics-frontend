@@ -28,6 +28,26 @@ const STATUSES: ShipmentStatus[] = [
   'CANCELLED',
 ];
 
+export const SORT_OPTIONS = [
+  { value: 'createdAt:desc', label: 'Newest first' },
+  { value: 'createdAt:asc', label: 'Oldest first' },
+  { value: 'weightKg:desc', label: 'Heaviest first' },
+  { value: 'weightKg:asc', label: 'Lightest first' },
+  { value: 'deliveryFee:desc', label: 'Highest fee' },
+  { value: 'deliveryFee:asc', label: 'Lowest fee' },
+] as const;
+
+/** Turns the `sort` URL param ("field:order") into API params; unknown values fall back to default. */
+export function parseShipmentSort(sort: string | null | undefined): {
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+} {
+  const match = SORT_OPTIONS.find((o) => o.value === sort);
+  if (!match) return {};
+  const [sortBy, sortOrder] = match.value.split(':');
+  return { sortBy, sortOrder: sortOrder as 'asc' | 'desc' };
+}
+
 export function ShipmentFilterBar() {
   const router = useRouter();
   const pathname = usePathname();
@@ -45,10 +65,10 @@ export function ShipmentFilterBar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch]);
 
-  const setStatus = (status: string) => {
+  const setParam = (key: string, value: string, emptyValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (status === 'ALL') params.delete('status');
-    else params.set('status', status);
+    if (value === emptyValue) params.delete(key);
+    else params.set(key, value);
     params.set('page', '1');
     router.push(`${pathname}?${params.toString()}`);
   };
@@ -64,7 +84,10 @@ export function ShipmentFilterBar() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <Select defaultValue={searchParams.get('status') ?? 'ALL'} onValueChange={setStatus}>
+      <Select
+        defaultValue={searchParams.get('status') ?? 'ALL'}
+        onValueChange={(v) => setParam('status', v, 'ALL')}
+      >
         <SelectTrigger className="sm:w-56">
           <SelectValue placeholder="Filter by status" />
         </SelectTrigger>
@@ -73,6 +96,21 @@ export function ShipmentFilterBar() {
           {STATUSES.map((s) => (
             <SelectItem key={s} value={s}>
               {s.replace(/_/g, ' ')}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Select
+        defaultValue={searchParams.get('sort') ?? 'createdAt:desc'}
+        onValueChange={(v) => setParam('sort', v, 'createdAt:desc')}
+      >
+        <SelectTrigger className="sm:w-48" aria-label="Sort shipments">
+          <SelectValue placeholder="Sort by" />
+        </SelectTrigger>
+        <SelectContent>
+          {SORT_OPTIONS.map((o) => (
+            <SelectItem key={o.value} value={o.value}>
+              {o.label}
             </SelectItem>
           ))}
         </SelectContent>
