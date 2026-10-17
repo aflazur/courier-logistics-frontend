@@ -18,7 +18,7 @@ export default function ContactPage() {
         </p>
         <div className="mt-8 space-y-5">
           <div className="text-ink-700 flex items-center gap-3 text-sm">
-            <Mail className="text-signal-600 h-4 w-4" /> support@courier-platform.example
+            <Mail className="text-signal-600 h-4 w-4" /> mdaflazurrahaman2022@gmail.com
           </div>
           <div className="text-ink-700 flex items-center gap-3 text-sm">
             <Phone className="text-signal-600 h-4 w-4" /> +880 1879-877653
