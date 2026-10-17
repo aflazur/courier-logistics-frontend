@@ -26,6 +26,7 @@ export const NAV_BY_ROLE: Record<Role, NavItem[]> = {
     { href: '/admin/users', label: 'Users', icon: Users },
     { href: '/admin/hubs', label: 'Hubs', icon: Building2 },
     { href: '/admin/reports', label: 'Audit Logs', icon: FileClock },
+    { href: '/admin/profile', label: 'Profile', icon: User },
   ],
   CUSTOMER: [
     { href: '/dashboard', label: 'My Shipments', icon: Package },

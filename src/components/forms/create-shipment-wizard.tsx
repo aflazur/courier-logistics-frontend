@@ -57,7 +57,7 @@ export function CreateShipmentWizard() {
                   i < step
                     ? 'bg-route-600 text-white'
                     : i === step
-                      ? 'bg-signal-500 text-ink-950'
+                      ? 'bg-signal-500 text-[#0a1420]'
                       : 'bg-ink-100 text-ink-500',
                 )}
               >

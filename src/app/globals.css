@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   /* Ink navy surfaces, signal amber accent, route green for delivered states -
      a shipping-manifest palette, not a generic SaaS one. */
@@ -68,6 +70,75 @@ body {
   background: var(--color-chalk-50);
   color: var(--color-ink-900);
   font-family: var(--font-body), sans-serif;
+}
+
+/* Dark mode: the whole palette is token-driven, so flipping the ink/chalk scales and the
+   card surface re-themes every component at once. Contrast is kept at WCAG AA or better. */
+:root {
+  --color-surface: #ffffff;
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+  --color-ink-950: #f4f7fa;
+  --color-ink-900: #e8edf2;
+  --color-ink-800: #d3dbe3;
+  --color-ink-700: #b7c2cd;
+  --color-ink-600: #9aa8b6;
+  --color-ink-500: #8f9aa8;
+  --color-ink-300: #4a5868;
+  --color-ink-100: #22344b;
+
+  --color-chalk-50: #0a1420;
+  --color-chalk-100: #0f1c2d;
+
+  --color-signal-100: #3a2c08;
+  --color-route-100: #123327;
+  --color-alert-100: #3b1a14;
+  --color-alert-600: #f0735c;
+
+  --color-surface: #132238;
+  --background: var(--color-chalk-50);
+  --foreground: var(--color-ink-900);
+}
+
+.dark .bg-white {
+  background-color: var(--color-surface);
+}
+
+/* Sections that are dark in BOTH themes (hero, footer, security band) re-pin the original
+   ink/chalk scale so their text and amber accents keep the same contrast in dark mode. */
+.surface-dark,
+.dark .surface-dark {
+  --color-ink-950: #0a1420;
+  --color-ink-900: #0f1b2d;
+  --color-ink-800: #16273d;
+  --color-ink-700: #22374f;
+  --color-ink-600: #344a66;
+  --color-ink-500: #5b6472;
+  --color-ink-300: #9aa5b1;
+  --color-ink-100: #dde3e8;
+  --color-chalk-50: #f7f5f0;
+  --color-chalk-100: #efece4;
+  --color-signal-100: #fdf1d6;
+  background-color: var(--color-ink-900);
+  color: var(--color-chalk-50);
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-fade-up {
+  animation: hero-fade-up 0.6s ease-out both;
 }
 
 /* Waybill-style dashed divider used between manifest-style sections */

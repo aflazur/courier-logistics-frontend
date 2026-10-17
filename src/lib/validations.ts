@@ -55,3 +55,8 @@ export const contactSchema = z.object({
   message: z.string().min(10, 'Message must be at least 10 characters'),
 });
 export type ContactInput = z.infer<typeof contactSchema>;
+
+export const newsletterSchema = z.object({
+  email: z.string().email('Enter a valid email address'),
+});
+export type NewsletterInput = z.infer<typeof newsletterSchema>;
