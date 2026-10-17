@@ -61,7 +61,7 @@ export function MarketingFooter() {
               <Mail className="text-signal-500 h-4 w-4" /> mdaflazurrahaman2022@gmail.com
             </li>
             <li className="flex items-center gap-2">
-              <Phone className="text-signal-500 h-4 w-4" /> +880 1700-000000
+              <Phone className="text-signal-500 h-4 w-4" /> +880 1879-877653
             </li>
             <li className="flex items-center gap-2">
               <MapPin className="text-signal-500 h-4 w-4" /> Motijheel C/A, Dhaka, Bangladesh
